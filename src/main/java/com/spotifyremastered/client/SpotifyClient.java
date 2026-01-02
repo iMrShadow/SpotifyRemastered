@@ -44,7 +44,8 @@ public class SpotifyClient {
     public static void main(String[] args) {
         SpotifyClient client = new SpotifyClient();
 
-        if (args.length >= 3) {
+        final int maxArg = 3;
+        if (args.length >= maxArg) {
             client.startClient(args[1], Integer.parseInt(args[2]));
         }
 

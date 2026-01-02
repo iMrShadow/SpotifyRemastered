@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spotify-remastered
+  namespace: spotify-app
+  labels:
+    app: spotify-remastered
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: spotify-remastered
+  template:
+    metadata:
+      labels:
+        app: spotify-remastered
+    spec:
+      containers:
+        - name: spotify-remastered
+          image: imrshadow/spotifyremastered:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1337
+          env:
+            - name: SERVER_HOST
+              value: "0.0.0.0"
+            - name: SERVER_PORT
+              value: "1337"
