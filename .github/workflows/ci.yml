@@ -83,12 +83,12 @@ jobs:
         run: snyk code test --severity-threshold=high --fail-on=all
 
   docker-scan:
-   name: Test Docker Image with Trivy
-   runs-on: ubuntu-latest
-   needs: [build]
-   permissions:
-    security-events: write
-   steps:
+    name: Test Docker Image with Trivy
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+     security-events: write
+    steps:
     - name: Checkout the code
       uses: actions/checkout@v4
 
