@@ -15,4 +15,4 @@ COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 1337
 
-ENTRYPOINT ["java", "-jar", "app.jar", "--SERVER_HOST=0.0.0.0", "--SERVER_PORT=1337"]
+ENTRYPOINT ["java", "-jar", "app.jar", "0.0.0.0", "1337"]

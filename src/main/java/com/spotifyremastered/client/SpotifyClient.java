@@ -44,17 +44,18 @@ public class SpotifyClient {
     public static void main(String[] args) {
         SpotifyClient client = new SpotifyClient();
 
-        final int maxArg = 3;
+        final int maxArg = 2;
         if (args.length >= maxArg) {
-            client.startClient(args[1], Integer.parseInt(args[2]));
+            client.startClient(args[0], Integer.parseInt(args[1]));
+        } else {
+            client.startClient(SERVER_HOST, SERVER_PORT);
         }
-
-        client.startClient(SERVER_HOST, SERVER_PORT);
     }
 
     private void startClient(String ipAddress, int port) {
         try (SocketChannel socketChannel = SocketChannel.open();
              Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Attempting to connect to: " + ipAddress + ":" + port + ".");
             socketChannel.connect(new InetSocketAddress(ipAddress, port));
             System.out.println("Connected to the server. Type 'help' for available commands.");
 
