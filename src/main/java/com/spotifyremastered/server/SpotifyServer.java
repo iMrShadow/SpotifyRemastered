@@ -5,6 +5,7 @@ import com.spotifyremastered.logger.Logger;
 import com.spotifyremastered.server.command.executor.CommandExecutor;
 import com.spotifyremastered.server.command.factory.CommandFactory;
 import com.spotifyremastered.server.user.User;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -21,8 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SpotifyServer {
 
-    private static final String SERVER_HOST = "localhost";
-    private static final int SERVER_PORT = 1337;
+    private static final String SERVER_HOST = System.getenv().getOrDefault("SERVER_HOST", "0.0.0.0");
+    private static final int SERVER_PORT = Integer.parseInt(System.getenv().getOrDefault("SERVER_PORT", "1337"));
     private static final int BUFFER_SIZE = 1024;
 
     private static boolean online = true;
@@ -36,13 +37,19 @@ public class SpotifyServer {
 
     public static void main(String[] args) {
         SpotifyServer server = new SpotifyServer();
-        server.startServer();
+
+        final int maxArg = 2;
+        if (args.length >= maxArg) {
+            server.startServer(args[0], Integer.parseInt(args[1]));
+        } else {
+            server.startServer(SERVER_HOST, SERVER_PORT);
+        }
     }
 
-    public void startServer() {
+    public void startServer(String ipAddress, int port) {
         try (ServerSocketChannel serverSocketChannel = ServerSocketChannel.open()) {
-            System.out.println("Server listening on port " + SERVER_PORT);
-            serverSocketChannel.bind(new InetSocketAddress(SERVER_HOST, SERVER_PORT));
+            System.out.println("Server listening on address: " + ipAddress + ":" + port + ".");
+            serverSocketChannel.bind(new InetSocketAddress(ipAddress, port));
             serverSocketChannel.configureBlocking(false);
 
             Selector selector = Selector.open();
