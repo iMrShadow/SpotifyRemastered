@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SpotifyServer {
 
@@ -27,10 +28,9 @@ public class SpotifyServer {
     private static boolean online = true;
 
     private final SpotifyManager spotifyManager;
-    private final Map<SocketChannel, Client> clients;
+    private final Map<SocketChannel, Client> clients = new ConcurrentHashMap<>();
 
     public SpotifyServer() {
-        this.clients = new HashMap<>();
         this.spotifyManager = new SpotifyManager();
     }
 
