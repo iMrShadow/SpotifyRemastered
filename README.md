@@ -46,5 +46,8 @@ The server will send the appropriate response if a command was successful or not
 - Music streaming occurs on a separate thread, allowing you to contiunue sending new commands.
 - If something crashes or goes wrong, a logger will output a `.txt` file with the error log and additional details.
 
+## DevOps & CI/CD
+For a detailed description of the automated delivery pipeline, branching strategy, and DevOps practices implemented in this project, see [DevOps & CI/CD Workflow](README-devops.md).
+
 # Credits
 Special thanks to Stoyan Velev and his team for their exceptional course! Be sure to check it out!
