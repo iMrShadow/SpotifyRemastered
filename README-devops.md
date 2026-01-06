@@ -24,12 +24,11 @@ Key pipeline steps include:
      - Builds Docker image.
      - Runs Trivy for Docker vulnerability scanning.
 3. **Continuous Delivery (CD) to Kubernetes (K8s):**  
-   - Triggered after a successful CI run on `dev`.
-   - **Docker Push:** Pushes the Docker image to Docker Hub.
-   - **Kubernetes Deployment:**  
-     - Uses Minikube for testing.
-     - Deploys the built image using Kubernetes manifests from the `/k8s` directory.
-     - Monitors rollout and enables rollback on deployment failure.
+    - Triggered on push to `main` or manually via workflow dispatch.
+    - **Two-stage pipeline:**
+        - **Build & Push:** Builds and pushes Docker image to Docker Hub with `latest` and commit SHA tags.
+        - **Deploy:** Applies Kubernetes manifests (namespace, deployment, service) to local Minikube cluster via self-hosted runner.
+    - Features rolling restart, deployment monitoring, and automatic rollback on failure.
 
 ### Future Improvements
 - Add a relational database (e.g., PostgreSQL) for user profiles, playlists, or playback history.
